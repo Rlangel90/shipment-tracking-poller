@@ -54,8 +54,7 @@ jobs:
         run: |
           nohup python -m mock_carrier.server > mock_carrier.log 2>&1 &
           for i in $(seq 1 20); do
-            code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8300/track/healthcheck)
-            [ "$code" = "404" ] && break
+            curl -s -o /dev/null http://localhost:8300/track/healthcheck && break
             sleep 0.5
           done
 
